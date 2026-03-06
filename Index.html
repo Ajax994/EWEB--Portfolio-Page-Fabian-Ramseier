@@ -2,14 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fabian Ramseier – Portfolio</title>
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
-    <button id="myButton1" class="btn">Klick mich!</button>
-    <div id="hiddenText" class="hidden-text hidden">
-        <p>Das ist ein verborgener Text</p></div>
+
+    <nav id="navbar">
+        <div class="nav-brand">
+            <span class="nav-brand-text">FABIAN<span class="nav-brand-accent">R</span></span>
+            <div class="nav-avatar">FR</div>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About Me</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <a href="#" class="btn-cv">Download CV</a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <main>
+        <section id="home"></section>
+        <section id="about"></section>
+        <section id="services"></section>
+        <section id="projects"></section>
+        <section id="testimonials"></section>
+        <section id="contact"></section>
+
+        <button id="myButton1" class="btn">Klick mich!</button>
+        <div id="hiddenText" class="hidden-text hidden">
+            <p>Das ist ein verborgener Text</p>
+        </div>
+    </main>
+
     <script src="script.js"></script>
 </body>
-
 </html>
