@@ -19,3 +19,14 @@
     transform: scale(0.98);
 }
 
+.hidden-text {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    max-height: 1000px;
+}
+
+.hidden-text.hidden {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+}
