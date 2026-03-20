@@ -129,6 +129,10 @@ h1, h2, h3, h4, h5, h6 {
     white-space: nowrap;
 }
 
+.btn-cv-mobile {
+    display: none;
+}
+
 .btn-cv:hover {
     background-color: #d4541f;
     transform: translateY(-1px);
@@ -403,5 +407,26 @@ main {
 
     .btn-cv {
         display: none;
+    }
+
+    .btn-cv-mobile {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        margin-top: 0.3rem;
+        background-color: var(--color-primary);
+        color: var(--color-text);
+        border-radius: var(--border-radius);
+        padding: 0.55rem 1.3rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .btn-cv-mobile:hover,
+    .btn-cv-mobile:focus-visible {
+        background-color: #d4541f;
+        color: var(--color-text);
     }
 }
