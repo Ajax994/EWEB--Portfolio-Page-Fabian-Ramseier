@@ -14,6 +14,8 @@
     --spacing-base: 1rem;
     --border-radius: 8px;
     --nav-height: 4.5rem;
+    --content-max-width: 72rem;
+    --content-padding-inline: clamp(1rem, 3vw, 2rem);
 }
 
 /* ===== BASE ===== */
@@ -38,14 +40,23 @@ h1, h2, h3, h4, h5, h6 {
     top: 0;
     left: 0;
     width: 100%;
-    background-color: var(--color-nav-bg);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 2rem;
     height: var(--nav-height);
+    background-color: var(--color-nav-bg);
     z-index: 1000;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+}
+
+.nav-inner {
+    width: 100%;
+    max-width: var(--content-max-width);
+    height: 100%;
+    margin: 0 auto;
+    padding-inline: var(--content-padding-inline);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2rem);
+    position: relative;
 }
 
 .nav-brand {
@@ -106,6 +117,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-cv {
+    margin-left: auto;
     background-color: var(--color-primary);
     color: var(--color-text);
     text-decoration: none;
@@ -374,9 +386,10 @@ main {
         left: 0;
         width: 100%;
         background-color: var(--color-nav-bg);
-        padding: 1rem 2rem 1.5rem;
+        padding: 1rem var(--content-padding-inline) 1.5rem;
         gap: 1rem;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        box-sizing: border-box;
     }
 
     .nav-links.open {
@@ -385,6 +398,7 @@ main {
 
     .nav-toggle {
         display: flex;
+        margin-left: auto;
     }
 
     .btn-cv {
