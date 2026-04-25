@@ -16,6 +16,14 @@
     --nav-height: 4.5rem;
     --content-max-width: 72rem;
     --content-padding-inline: clamp(1rem, 3vw, 2rem);
+    --experience-padding-block: 2.5rem;
+    --experience-heading-size: 1.75rem;
+    --timeline-line-width: 0.125rem;
+    --timeline-marker-size: 0.75rem;
+    --timeline-content-offset: 1.35rem;
+    --timeline-item-gap: 2rem;
+    --timeline-date-size: 1.05rem;
+    --timeline-title-size: 1rem;
 }
 
 /* ===== BASE ===== */
@@ -325,6 +333,67 @@ main {
     fill: currentColor;
 }
 
+/* ===== EXPERIENCE SECTION ===== */
+
+.experience {
+    background-color: var(--color-hero-bg);
+    color: var(--color-text);
+}
+
+.experience-container {
+    width: 100%;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: var(--experience-padding-block) var(--content-padding-inline);
+    box-sizing: border-box;
+}
+
+.experience-heading {
+    margin: 0 0 1.5rem;
+    font-size: var(--experience-heading-size);
+    color: var(--color-text);
+}
+
+.experience-timeline {
+    border-left: var(--timeline-line-width) solid var(--color-accent);
+    padding-left: var(--timeline-content-offset);
+}
+
+.experience-item {
+    position: relative;
+    padding-bottom: var(--timeline-item-gap);
+}
+
+.experience-item:last-child {
+    padding-bottom: 0;
+}
+
+.experience-item::before {
+    content: "";
+    position: absolute;
+    top: 0.35rem;
+    left: calc((var(--timeline-content-offset) * -1) - (var(--timeline-marker-size) / 2) - (var(--timeline-line-width) / 2));
+    width: var(--timeline-marker-size);
+    height: var(--timeline-marker-size);
+    border-radius: 50%;
+    background-color: var(--color-accent);
+}
+
+.experience-date {
+    margin: 0;
+    font-size: var(--timeline-date-size);
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.experience-title {
+    margin: 0.45rem 0 0;
+    font-size: var(--timeline-title-size);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-text);
+}
+
 /* ===== RESPONSIVE ===== */
 
 @media (min-width: 480px) {
@@ -334,6 +403,15 @@ main {
 
     .hero-container {
         padding: 3rem 8%;
+    }
+
+    .experience-container {
+        width: 100%;
+        padding-block: 2.35rem;
+    }
+
+    .experience-timeline {
+        padding-left: 1.2rem;
     }
 }
 
@@ -364,6 +442,14 @@ main {
     .btn-hire {
         align-self: flex-start;
     }
+
+    .experience-date {
+        font-size: 0.98rem;
+    }
+
+    .experience-title {
+        font-size: 0.95rem;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -378,6 +464,10 @@ main {
     .hero-portrait {
         width: clamp(300px, 30vw, 400px);
         height: clamp(300px, 30vw, 400px);
+    }
+
+    .experience-item {
+        padding-bottom: 1.65rem;
     }
 }
 
