@@ -24,6 +24,20 @@
     --timeline-item-gap: 2rem;
     --timeline-date-size: 1.05rem;
     --timeline-title-size: 1rem;
+    --about-padding-block: 2.5rem;
+    --about-heading-size: 1.75rem;
+    --about-intro-size: clamp(0.98rem, 2vw, 1.1rem);
+    --about-intro-line-height: 1.7;
+    --about-intro-max-width: 70ch;
+    --about-intro-margin-bottom: 2rem;
+    --about-grid-columns: 1;
+    --about-grid-gap: 1.5rem;
+    --about-skill-gap: 0.7rem;
+    --about-skill-icon-size: 2rem;
+    --about-skill-label-size: clamp(0.95rem, 1.8vw, 1.05rem);
+    --about-skill-label-line-height: 1.4;
+    --about-icon-scale-hover: 1.08;
+    --about-icon-transition: transform 0.2s ease;
 }
 
 /* ===== BASE ===== */
@@ -334,6 +348,68 @@ main {
     fill: currentColor;
 }
 
+/* ===== ABOUT SECTION ===== */
+
+.about {
+    background-color: var(--color-hero-bg);
+    color: var(--color-text);
+}
+
+.about-content {
+    padding-block: var(--about-padding-block);
+}
+
+.about-heading {
+    margin: 0 0 var(--spacing-base);
+    font-size: var(--about-heading-size);
+    color: var(--color-text);
+}
+
+.about-intro {
+    margin: 0 0 var(--about-intro-margin-bottom);
+    max-width: var(--about-intro-max-width);
+    font-size: var(--about-intro-size);
+    line-height: var(--about-intro-line-height);
+    color: var(--color-text);
+}
+
+.about-skills {
+        display: grid;
+        grid-template-columns: repeat(var(--about-grid-columns), minmax(0, 1fr));
+        gap: var(--about-grid-gap);
+        max-width: var(--about-intro-max-width);
+    }
+
+.about-skill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--about-skill-gap);
+    text-align: center;
+}
+
+.about-skill-icon {
+    width: var(--about-skill-icon-size);
+    height: var(--about-skill-icon-size);
+    color: var(--color-accent);
+    transition: var(--about-icon-transition);
+    transform-origin: center;
+    flex-shrink: 0;
+}
+
+.about-skill:hover .about-skill-icon,
+.about-skill:focus-within .about-skill-icon {
+    transform: scale(var(--about-icon-scale-hover));
+}
+
+.about-skill-label {
+    margin: 0;
+    color: var(--color-text);
+    font-size: var(--about-skill-label-size);
+    line-height: var(--about-skill-label-line-height);
+}
+
 /* ===== EXPERIENCE SECTION ===== */
 
 .experience {
@@ -398,6 +474,11 @@ main {
 /* ===== RESPONSIVE ===== */
 
 @media (min-width: 480px) {
+    .about {
+        --about-padding-block: 2.7rem;
+        --about-grid-gap: 1.7rem;
+    }
+
     .nav-links {
         gap: 1.2rem;
     }
@@ -417,6 +498,10 @@ main {
 }
 
 @media (min-width: 768px) {
+    .about {
+        --about-grid-columns: 2;
+    }
+
     .nav-links {
         gap: 1.6rem;
     }
@@ -454,6 +539,10 @@ main {
 }
 
 @media (min-width: 1024px) {
+    .about {
+        --about-grid-columns: 3;
+    }
+
     .nav-links {
         gap: 2rem;
     }
