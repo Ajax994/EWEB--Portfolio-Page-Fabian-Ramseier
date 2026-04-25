@@ -218,9 +218,10 @@ main {
     grid-template-columns: 1fr;
     align-items: center;
     gap: 2.5rem;
-    padding: 3rem 6%;
+    padding-block: 3rem;
+    padding-inline: var(--content-padding-inline);
     width: 100%;
-    max-width: 1200px;
+    max-width: var(--content-max-width);
     margin: 0 auto;
     box-sizing: border-box;
 }
@@ -402,7 +403,7 @@ main {
     }
 
     .hero-container {
-        padding: 3rem 8%;
+        padding-block: 3rem;
     }
 
     .experience-container {
@@ -422,7 +423,7 @@ main {
 
     .hero-container {
         grid-template-columns: 1fr 1fr;
-        padding: 4rem 6%;
+        padding-block: 4rem;
     }
 
     .hero-text {
@@ -458,7 +459,7 @@ main {
     }
 
     .hero-container {
-        padding: 5rem 6%;
+        padding-block: 5rem;
     }
 
     .hero-portrait {
