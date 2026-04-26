@@ -23,6 +23,7 @@
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#recruiter-chat" class="nav-link">Recruiter Chat</a></li>
                 <li><a href="assets/cv/fabian-ramseier-cv-2026-04.pdf" class="nav-link btn-cv-mobile" target="_blank" rel="noopener noreferrer">Download CV</a></li>
             </ul>
 
@@ -82,7 +83,7 @@
                         <svg class="about-skill-icon" viewBox="0 0 24 24" role="img" aria-label="Agile Scrum icon" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 12h6M15 12h6M12 3v6M12 15v6M6 6l4 4M14 14l4 4M18 6l-4 4M10 14l-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
                         </svg>
-                        <p class="about-skill-label">Agile / Scrum</p>
+                        <p class="about-skill-label">Agile / Scrum / SAFe</p>
                     </article>
 
                     <article class="about-skill">
@@ -145,6 +146,33 @@
         <section id="projects"></section>
         <section id="testimonials"></section>
         <section id="contact"></section>
+
+        <section id="recruiter-chat" class="recruiter-chat">
+            <div class="experience-container recruiter-chat-content">
+                <h2 class="recruiter-chat-heading">Recruiter Chat</h2>
+                <p class="recruiter-chat-teaser">Stell konkrete Fragen zur Rolle und ich prüfe transparent, ob Fabian dafür passt. Sie können meine Transparenz mit den zwei Beispiel Prompts überprüfen. </p>
+
+                <div class="chat-window">
+                    <div id="chat-messages" aria-live="polite" aria-label="Chatverlauf"></div>
+
+                    <div class="chat-suggestions">
+                        <button class="chat-suggestion" data-prompt="Wir suchen jemanden der bei der Modernisierung eines digitalen Versicherungsprodukts mitwirkt - Anforderungsanalyse, Schnittstelle zwischen IT und Fachbereich. Passt Fabian?">
+                            🟢 Digitales Versicherungsprodukt
+                        </button>
+                        <button class="chat-suggestion" data-prompt="Wir suchen einen erfahrenen Produktmanager zur Uebernahme des gesamten Portfolios eines etablierten Uhrenherstellers mit 10 Jahren Branchenerfahrung. Passt Fabian?">
+                            🔴 Produktmanagement Uhrenbranche
+                        </button>
+                    </div>
+
+                    <div class="chat-input-row">
+                        <input type="text" id="chat-input" placeholder="Frag mich ob Fabian passt...">
+                        <button id="chat-send" type="button">Senden</button>
+                    </div>
+                </div>
+
+                <p class="chat-disclaimer">Hinweis: Der Chat ist KI-gestuetzt und kann Fehler machen. Bitte Antworten bei wichtigen Entscheidungen gegenpruefen.</p>
+            </div>
+        </section>
 
 
     </main>

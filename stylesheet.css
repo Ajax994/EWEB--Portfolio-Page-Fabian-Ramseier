@@ -38,6 +38,29 @@
     --about-skill-label-line-height: 1.4;
     --about-icon-scale-hover: 1.08;
     --about-icon-transition: transform 0.2s ease;
+    --color-border: #3a3a50;
+    --color-surface-alt: #232334;
+    --chat-section-padding-block: 2.5rem;
+    --chat-window-padding: 1rem;
+    --chat-window-radius: var(--border-radius);
+    --chat-messages-min-height: 10rem;
+    --chat-messages-max-height: 18.75rem;
+    --chat-message-gap: 0.75rem;
+    --chat-message-padding: 0.7rem 0.9rem;
+    --chat-message-radius: 0.75rem;
+    --chat-input-gap: 0.6rem;
+    --chat-input-padding: 0.65rem 0.85rem;
+    --chat-button-padding: 0.65rem 1rem;
+    --chat-muted-color: var(--color-text-muted);
+    --chat-suggestions-gap: 0.55rem;
+    --chat-suggestions-margin-bottom: 0.9rem;
+    --chat-suggestion-padding: 0.35rem 0.7rem;
+    --chat-suggestion-radius: 999rem;
+    --chat-suggestion-font-size: 0.85rem;
+    --chat-suggestion-transition: background-color 0.2s ease, color 0.2s ease;
+    --chat-window-max-width-tablet: 43.75rem;
+    --chat-disclaimer-size: 0.85rem;
+    --chat-content-gap: 1rem;
 }
 
 /* ===== BASE ===== */
@@ -471,9 +494,139 @@ main {
     color: var(--color-text);
 }
 
+/* ===== RECRUITER CHAT SECTION ===== */
+
+.recruiter-chat {
+    background-color: var(--color-hero-bg);
+    color: var(--color-text);
+}
+
+.recruiter-chat-content {
+    padding-block: var(--chat-section-padding-block);
+}
+
+.recruiter-chat-heading {
+    margin: 0;
+    font-size: var(--about-heading-size);
+}
+
+.recruiter-chat-teaser {
+    margin: var(--spacing-base) 0;
+    max-width: var(--about-intro-max-width);
+    line-height: var(--about-intro-line-height);
+}
+
+.chat-window {
+    border: var(--timeline-line-width) solid var(--color-border);
+    border-radius: var(--chat-window-radius);
+    padding: var(--chat-window-padding);
+    display: flex;
+    flex-direction: column;
+    gap: var(--chat-content-gap);
+}
+
+#chat-messages {
+    min-height: var(--chat-messages-min-height);
+    max-height: var(--chat-messages-max-height);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--chat-message-gap);
+}
+
+.chat-message {
+    max-width: 85%;
+    padding: var(--chat-message-padding);
+    border-radius: var(--chat-message-radius);
+    line-height: 1.5;
+}
+
+.chat-message--user {
+    align-self: flex-end;
+    background-color: var(--color-accent);
+    color: var(--color-text);
+}
+
+.chat-message--assistant {
+    align-self: flex-start;
+    background-color: var(--color-surface-alt);
+    color: var(--color-text);
+}
+
+.chat-message--loading {
+    align-self: flex-start;
+    color: var(--chat-muted-color);
+    font-style: italic;
+}
+
+.chat-suggestions {
+    display: flex;
+    gap: var(--chat-suggestions-gap);
+    flex-wrap: wrap;
+    margin-bottom: var(--chat-suggestions-margin-bottom);
+}
+
+.chat-suggestion {
+    border: var(--timeline-line-width) solid var(--color-accent);
+    background-color: transparent;
+    color: inherit;
+    border-radius: var(--chat-suggestion-radius);
+    padding: var(--chat-suggestion-padding);
+    cursor: pointer;
+    font-size: var(--chat-suggestion-font-size);
+    font-family: inherit;
+    transition: var(--chat-suggestion-transition);
+}
+
+.chat-suggestion:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+}
+
+.chat-input-row {
+    display: flex;
+    gap: var(--chat-input-gap);
+    align-items: center;
+}
+
+#chat-input {
+    flex: 1;
+    padding: var(--chat-input-padding);
+    border: var(--timeline-line-width) solid var(--color-border);
+    border-radius: var(--chat-window-radius);
+    font-family: inherit;
+    color: var(--color-text);
+    background-color: var(--color-surface-alt);
+}
+
+#chat-send {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    border: none;
+    padding: var(--chat-button-padding);
+    border-radius: var(--chat-window-radius);
+    cursor: pointer;
+    font-family: inherit;
+}
+
+#chat-send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chat-disclaimer {
+    margin: var(--spacing-base) 0 0;
+    color: var(--chat-muted-color);
+    font-size: var(--chat-disclaimer-size);
+}
+
 /* ===== RESPONSIVE ===== */
 
 @media (min-width: 480px) {
+    .recruiter-chat {
+        --chat-window-padding: 1.15rem;
+    }
+
     .about {
         --about-padding-block: 2.7rem;
         --about-grid-gap: 1.7rem;
@@ -498,6 +651,11 @@ main {
 }
 
 @media (min-width: 768px) {
+    .chat-window {
+        max-width: var(--chat-window-max-width-tablet);
+        margin-inline: 0;
+    }
+
     .about {
         --about-grid-columns: 2;
     }
@@ -539,6 +697,10 @@ main {
 }
 
 @media (min-width: 1024px) {
+    .recruiter-chat {
+        --chat-section-padding-block: 3rem;
+    }
+
     .about {
         --about-grid-columns: 3;
     }
