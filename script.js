@@ -157,6 +157,31 @@ if (chatSend && chatInput) {
     });
 }
 
+const projectFilters = document.querySelectorAll('.project-filter');
+const projectCards = document.querySelectorAll('.project-card');
 
+function applyProjectFilter(filter) {
+    projectCards.forEach(function(card) {
+        const category = card.getAttribute('data-category');
+        const isVisible = filter === 'all' || category === filter;
+        card.style.display = isVisible ? '' : 'none';
+    });
+}
 
+if (projectFilters.length && projectCards.length) {
+    projectFilters.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const filter = button.getAttribute('data-filter') || 'all';
 
+            projectFilters.forEach(function(btn) {
+                btn.classList.remove('is-active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+
+            button.classList.add('is-active');
+            button.setAttribute('aria-pressed', 'true');
+
+            applyProjectFilter(filter);
+        });
+    });
+}
