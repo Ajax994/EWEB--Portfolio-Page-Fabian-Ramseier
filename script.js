@@ -104,14 +104,21 @@ async function sendChatMessage() {
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
+            const errorBody = await response.text();
+            const fallbackMessage = 'Entschuldigung, der Recruiter-Chat ist gerade nicht verfuegbar. Bitte versuche es in wenigen Sekunden erneut.';
+            appendChatMessage(fallbackMessage, 'chat-message--assistant');
+            console.error('Recruiter chat failed:', errorBody || response.status);
+            return;
         }
 
         const data = await response.json();
         const assistantText = data && data.content && data.content[0] ? data.content[0].text : '';
 
         if (!assistantText) {
-            throw new Error('Leere Antwort von der API.');
+            const fallbackMessage = 'Entschuldigung, der Recruiter-Chat ist gerade nicht verfuegbar. Bitte versuche es in wenigen Sekunden erneut.';
+            appendChatMessage(fallbackMessage, 'chat-message--assistant');
+            console.error('Recruiter chat failed: empty response');
+            return;
         }
 
         conversationHistory.push({ role: 'assistant', content: assistantText });
