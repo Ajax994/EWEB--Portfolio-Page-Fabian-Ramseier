@@ -132,7 +132,32 @@
 
         <section id="projects" class="projects"></section>
 
-        <section id="contact"></section>
+        <section id="contact" class="contact">
+            <div class="experience-container contact-content">
+                <h2 class="contact-heading">Contact</h2>
+                <p class="contact-intro">Schreib mir gern eine Nachricht – ich melde mich so schnell wie moeglich.</p>
+
+                <form class="contact-form" id="contact-form" action="https://formspree.io/f/maqkolnd" method="POST">
+                    <label class="contact-field">
+                        <span class="contact-label">Name</span>
+                        <input class="contact-input" type="text" name="name" autocomplete="name" required>
+                    </label>
+
+                    <label class="contact-field">
+                        <span class="contact-label">Email</span>
+                        <input class="contact-input" type="email" name="email" autocomplete="email" required>
+                    </label>
+
+                    <label class="contact-field">
+                        <span class="contact-label">Message</span>
+                        <textarea class="contact-textarea" name="message" rows="5" required></textarea>
+                    </label>
+
+                    <button class="contact-submit" type="submit">Send</button>
+                    <p class="contact-status" id="contact-status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
 
         <section id="recruiter-chat" class="recruiter-chat">
             <div class="experience-container recruiter-chat-content">

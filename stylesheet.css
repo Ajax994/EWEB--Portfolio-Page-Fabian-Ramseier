@@ -105,6 +105,13 @@
     --footer-gap: 1.2rem;
     --footer-text-size: 0.95rem;
     --footer-social-gap: 1.25rem;
+    --contact-padding-block: 2.5rem;
+    --contact-form-gap: 1.1rem;
+    --contact-field-gap: 0.45rem;
+    --contact-input-padding: 0.7rem 0.9rem;
+    --contact-input-radius: 0.6rem;
+    --contact-input-border: var(--timeline-line-width) solid var(--color-border);
+    --contact-status-size: 0.9rem;
 }
 
 /* ===== BASE ===== */
@@ -1085,4 +1092,102 @@ main {
         background-color: #d4541f;
         color: var(--color-text);
     }
+}
+
+/* ===== CONTACT SECTION ===== */
+
+.contact {
+    background-color: var(--color-hero-bg);
+    color: var(--color-text);
+}
+
+.contact-content {
+    padding-block: var(--contact-padding-block);
+}
+
+.contact-heading {
+    margin: 0 0 0.75rem;
+    font-size: var(--about-heading-size);
+}
+
+.contact-intro {
+    margin: 0 0 1.5rem;
+    max-width: var(--about-intro-max-width);
+    line-height: var(--about-intro-line-height);
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--contact-form-gap);
+    max-width: 36rem;
+}
+
+.contact-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--contact-field-gap);
+}
+
+.contact-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.contact-input,
+.contact-textarea {
+    background-color: var(--color-surface-alt);
+    color: var(--color-text);
+    border: var(--contact-input-border);
+    border-radius: var(--contact-input-radius);
+    padding: var(--contact-input-padding);
+    font-family: inherit;
+}
+
+.contact-textarea {
+    resize: vertical;
+    min-height: 8rem;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+.contact-submit {
+    align-self: flex-start;
+    background-color: var(--color-accent);
+    color: var(--color-text);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.contact-submit:hover {
+    background-color: #d44a08;
+    transform: translateY(-1px);
+}
+
+.contact-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.contact-status {
+    margin: 0;
+    font-size: var(--contact-status-size);
+    color: var(--color-text-muted);
+}
+
+.contact-status.is-success {
+    color: #79d98b;
+}
+
+.contact-status.is-error {
+    color: #f28b82;
 }
