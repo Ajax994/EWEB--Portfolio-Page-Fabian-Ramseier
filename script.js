@@ -104,14 +104,21 @@ async function sendChatMessage() {
         });
 
         if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
+            const errorBody = await response.text();
+            const fallbackMessage = 'Entschuldigung, der Recruiter-Chat ist gerade nicht verfuegbar. Bitte versuche es in wenigen Sekunden erneut.';
+            appendChatMessage(fallbackMessage, 'chat-message--assistant');
+            console.error('Recruiter chat failed:', errorBody || response.status);
+            return;
         }
 
         const data = await response.json();
         const assistantText = data && data.content && data.content[0] ? data.content[0].text : '';
 
         if (!assistantText) {
-            throw new Error('Leere Antwort von der API.');
+            const fallbackMessage = 'Entschuldigung, der Recruiter-Chat ist gerade nicht verfuegbar. Bitte versuche es in wenigen Sekunden erneut.';
+            appendChatMessage(fallbackMessage, 'chat-message--assistant');
+            console.error('Recruiter chat failed: empty response');
+            return;
         }
 
         conversationHistory.push({ role: 'assistant', content: assistantText });
@@ -157,6 +164,31 @@ if (chatSend && chatInput) {
     });
 }
 
+const projectFilters = document.querySelectorAll('.project-filter');
+const projectCards = document.querySelectorAll('.project-card');
 
+function applyProjectFilter(filter) {
+    projectCards.forEach(function(card) {
+        const category = card.getAttribute('data-category');
+        const isVisible = filter === 'all' || category === filter;
+        card.style.display = isVisible ? '' : 'none';
+    });
+}
 
+if (projectFilters.length && projectCards.length) {
+    projectFilters.forEach(function(button) {
+        button.addEventListener('click', function() {
+            const filter = button.getAttribute('data-filter') || 'all';
 
+            projectFilters.forEach(function(btn) {
+                btn.classList.remove('is-active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+
+            button.classList.add('is-active');
+            button.setAttribute('aria-pressed', 'true');
+
+            applyProjectFilter(filter);
+        });
+    });
+}
