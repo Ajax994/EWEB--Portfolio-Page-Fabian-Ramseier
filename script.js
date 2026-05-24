@@ -260,3 +260,187 @@ if (contactForm) {
         }
     });
 }
+
+/**
+ * Skills Section - Chart.js Implementation
+ */
+async function initSkillsCharts() {
+    if (typeof Chart === 'undefined') {
+        console.error('Chart.js not loaded');
+        return;
+    }
+
+    const competenciesCanvas = document.getElementById('competenciesChart');
+    const toolsCanvas = document.getElementById('toolsChart');
+
+    if (!competenciesCanvas || !toolsCanvas) return;
+
+    try {
+        const response = await fetch('./assets/data/skills.json');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+
+        if (!data.competencies || !data.tools) throw new Error('Invalid skills data structure');
+
+        renderCompetenciesChart(competenciesCanvas, data.competencies);
+        renderToolsChart(toolsCanvas, data.tools);
+    } catch (error) {
+        console.error('Failed to load skills data:', error);
+    }
+}
+
+function renderCompetenciesChart(canvas, competencies) {
+    const labels = competencies.map(c => c.label);
+    const values = competencies.map(c => c.value);
+
+    new Chart(canvas, {
+        type: 'radar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Score',
+                data: values,
+                fill: true,
+                backgroundColor: 'rgba(224, 123, 57, 0.4)',
+                borderColor: '#E07B39',
+                pointBackgroundColor: '#E07B39',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#E07B39',
+                borderWidth: 2
+            }, {
+                label: 'Range',
+                data: values.map(v => Math.min(100, v + 15)),
+                fill: true,
+                backgroundColor: 'rgba(224, 123, 57, 0.1)',
+                borderColor: 'transparent',
+                pointRadius: 0,
+                pointHitRadius: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: {
+                        color: 'rgba(255, 255, 255, 0.2)'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    pointLabels: {
+                        color: '#a0a0a0',
+                        font: {
+                            size: 11,
+                            family: "'Inter', sans-serif"
+                        }
+                    },
+                    ticks: {
+                        display: false,
+                        stepSize: 20
+                    },
+                    min: 0,
+                    max: 100
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'start',
+                    labels: {
+                        color: '#a0a0a0',
+                        usePointStyle: true,
+                        pointStyle: 'rect',
+                        padding: 15,
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderToolsChart(canvas, tools) {
+    const labels = tools.map(t => t.label);
+    const values = tools.map(t => t.value);
+
+    new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Proficiency',
+                data: values,
+                backgroundColor: '#378ADD',
+                borderRadius: 4,
+                barThickness: 16
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#a0a0a0',
+                        font: {
+                            size: 11
+                        },
+                        callback: function(value) {
+                            return value + "%";
+                        }
+                    },
+                    min: 0,
+                    max: 100
+                },
+                y: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#a0a0a0',
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'start',
+                    labels: {
+                        color: '#a0a0a0',
+                        usePointStyle: true,
+                        pointStyle: 'rect',
+                        padding: 15,
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Proficiency: ${context.raw}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Initialize charts when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initSkillsCharts();
+});

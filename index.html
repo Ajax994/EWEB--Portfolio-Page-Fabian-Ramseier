@@ -18,6 +18,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#about" class="nav-link nav-link--nowrap">About Me</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -120,6 +121,29 @@
                         <p class="about-skill-label">Insurance Domain</p>
                     </article>
                 </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="experience-container skills-content">
+                <span class="skills-eyebrow">Skills</span>
+                <h2 class="skills-heading">My Skill Set</h2>
+                <p class="skills-intro">Competencies and tools built across product management, strategy and technology.</p>
+                
+            <div class="skills-grid">
+                <div class="skills-card">
+                    <h3 class="skills-card-title">Core competencies</h3>
+                    <div class="skills-chart-container">
+                        <canvas id="competenciesChart" aria-label="Radar chart showing core competencies" role="img"></canvas>
+                    </div>
+                </div>
+                <div class="skills-card">
+                    <h3 class="skills-card-title">Tools & technologies</h3>
+                    <div class="skills-chart-container">
+                        <canvas id="toolsChart" aria-label="Horizontal bar chart showing tools and technologies" role="img"></canvas>
+                    </div>
+                </div>
+            </div>
             </div>
         </section>
 
@@ -319,6 +343,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
