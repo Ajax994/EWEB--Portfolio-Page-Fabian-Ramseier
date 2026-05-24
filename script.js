@@ -192,3 +192,71 @@ if (projectFilters.length && projectCards.length) {
         });
     });
 }
+
+const contactForm = document.getElementById('contact-form');
+const contactStatus = document.getElementById('contact-status');
+
+async function submitContactFormData(actionUrl, formData) {
+    try {
+        const response = await fetch(actionUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: formData
+        });
+
+        if (response.ok) {
+            return { ok: true };
+        }
+
+        let errorMessage = 'Entschuldigung, das Formular konnte nicht gesendet werden.';
+        const errorData = await response.json().catch(function() {
+            return null;
+        });
+
+        if (errorData && errorData.errors && errorData.errors.length) {
+            errorMessage = errorData.errors[0].message || errorMessage;
+        }
+
+        return { ok: false, message: errorMessage };
+    } catch (error) {
+        return { ok: false, message: 'Entschuldigung, das Formular konnte nicht gesendet werden.' };
+    }
+}
+
+function updateContactStatus(message, statusClass) {
+    if (!contactStatus) {
+        return;
+    }
+
+    contactStatus.textContent = message;
+    contactStatus.className = `contact-status ${statusClass}`.trim();
+}
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        if (submitButton) {
+            submitButton.disabled = true;
+        }
+
+        updateContactStatus('Sende Nachricht ...', '');
+
+        const formData = new FormData(contactForm);
+        const result = await submitContactFormData(contactForm.action, formData);
+
+        if (result.ok) {
+            updateContactStatus('Danke! Deine Nachricht wurde gesendet.', 'is-success');
+            contactForm.reset();
+        } else {
+            updateContactStatus(result.message, 'is-error');
+        }
+
+        if (submitButton) {
+            submitButton.disabled = false;
+        }
+    });
+}
