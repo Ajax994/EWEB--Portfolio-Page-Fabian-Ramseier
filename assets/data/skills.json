@@ -1,0 +1,22 @@
+﻿{
+  "competencies": [
+    { "label": "Product Strategy", "value": 90 },
+    { "label": "Agile / SAFe", "value": 85 },
+    { "label": "Stakeholder Mgmt", "value": 88 },
+    { "label": "Insurance Domain", "value": 95 },
+    { "label": "Digital Business", "value": 82 },
+    { "label": "AI & Data", "value": 75 }
+  ],
+  "tools": [
+    { "label": "Jira", "value": 90 },
+    { "label": "Figma", "value": 85 },
+    { "label": "Confluence", "value": 85 },
+    { "label": "Miro", "value": 80 },
+    { "label": "Git", "value": 72 },
+    { "label": "Python", "value": 70 },
+    { "label": "R", "value": 65 },
+    { "label": "Docker", "value": 55 },
+    { "label": "Vue.js", "value": 50 },
+    { "label": "Strapi", "value": 50 }
+  ]
+}

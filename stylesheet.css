@@ -112,6 +112,10 @@
     --contact-input-radius: 0.6rem;
     --contact-input-border: var(--timeline-line-width) solid var(--color-border);
     --contact-status-size: 0.9rem;
+    --skills-accent-orange: #E07B39;
+    --skills-accent-blue: #378ADD;
+    --skills-card-bg: var(--projects-card-bg);
+    --skills-grid-gap: 1.5rem;
 }
 
 /* ===== BASE ===== */
@@ -1091,6 +1095,81 @@ main {
     .btn-cv-mobile:focus-visible {
         background-color: #d4541f;
         color: var(--color-text);
+    }
+}
+
+/* ===== SKILLS SECTION ===== */
+
+.skills {
+    background-color: var(--color-hero-bg);
+    color: var(--color-text);
+}
+
+.skills-content {
+    padding-block: var(--contact-padding-block);
+}
+
+.skills-eyebrow {
+    display: inline-block;
+    color: var(--skills-accent-orange);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.skills-heading {
+    margin: 0 0 0.75rem;
+    font-size: var(--about-heading-size);
+}
+
+.skills-intro {
+    margin: 0 0 2.5rem;
+    max-width: var(--about-intro-max-width);
+    line-height: var(--about-intro-line-height);
+    color: var(--color-text-muted);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--skills-grid-gap);
+}
+
+.skills-card {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.skills-card-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #a0a0a0;
+}
+
+.skills-chart-container {
+    position: relative;
+    width: 100%;
+    height: 260px;
+}
+
+@media (min-width: 768px) {
+    .skills-chart-container {
+        height: 350px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
     }
 }
 
