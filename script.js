@@ -17,51 +17,6 @@ navLinks.querySelectorAll('.nav-link').forEach(function(link) {
 // Auf GitHub Pages (Static Hosting) ist kein serverseitiger Proxy moeglich.
 // Produktive Loesung: Serverless Function als Proxy (z.B. Netlify/Vercel).
 // Massnahmen: Spending Limit $2, Key wird nach Benotung rotiert.
-    if (!isApiKeyConfigured) {
-        return;
-    }
-
-function disableChatUiForMissingKey() {
-    setChatInteractionDisabled(true);
-
-    chatSuggestionButtons.forEach(function(button) {
-        button.disabled = true;
-        button.setAttribute('aria-disabled', 'true');
-    });
-
-    if (chatMessages) {
-        const notice = document.createElement('div');
-        notice.className = 'chat-message chat-message--assistant';
-        notice.textContent = 'Chat-Funktion ist aktuell nicht verfuegbar.';
-        chatMessages.appendChild(notice);
-        scrollChatToBottom();
-    }
-}
-
-if (!isApiKeyConfigured) {
-    disableChatUiForMissingKey();
-}
-
-const isApiKeyConfigured = typeof API_KEY === 'string'
-    && API_KEY.trim() !== ''
-    && API_KEY !== 'REPLACE_BY_CI'
-    && !API_KEY.includes('REPLACE_BY_CI');
-
-// API_KEY wird ueber secret.js bereitgestellt.
-
-const systemPrompt = `Du bist ein freundlicher, sachlicher Assistent der Fachschule Bern Portfolio-Seite von Fabian Ramseier.
-Deine einzige Aufgabe: Recruitern ehrlich beantworten ob Fabian fuer eine konkrete Stelle geeignet ist.
-
-Fabians Profil:
-- Studium: Bsc Wirtschaftsinformatik (digital Business and AI), Fachhochschule Bern (laufend)
-- Praktische Erfahrung: Projekt bei Mobiliar ([Projektbeschreibung: Modernisierung des Versicherungsproduktes sowie des Systems]), 5 Jahre Consulting in der Versicherungsindustrie mit Fokus auf KMU, Lehre auf einer Generalagentur (ebenfalls Versicherungsbranche),
-- Skills: HTML, CSS, JavaScript, Python, Grundlagenwissen mit AI, Versicherungstechnik, Jira, agile Methoden (SAFe), Stakeholder Management, 
-- Sprachen: Deutsch (Muttersprache), Englisch (B2), Franzoesisch (B1)
-- Staerken: Schneller Lerner, uebernimmt gerne Verantwortung, Wissensdurstig, sehr adaptiv bei neuen Situationen,
-- Einschraenkungen: Aktuell nur Teilzeit aufgrund des Studiums. Einschraenkung entfaellt Sommer 2027.
-Antworte immer auf Deutsch. Bleib sachlich.
-Wenn du etwas nicht weisst, sag es offen. Erfinde keine Fakten ueber Fabian.`;
-
 const chatMessages = document.getElementById('chat-messages');
 const chatInput = document.getElementById('chat-input');
 const chatSend = document.getElementById('chat-send');
@@ -69,6 +24,11 @@ const chatSuggestions = document.querySelector('.chat-suggestions');
 const chatSuggestionButtons = document.querySelectorAll('.chat-suggestion');
 
 const conversationHistory = [];
+
+const isApiKeyConfigured = typeof API_KEY === 'string'
+    && API_KEY.trim() !== ''
+    && API_KEY !== 'REPLACE_BY_CI'
+    && !API_KEY.includes('REPLACE_BY_CI');
 
 function scrollChatToBottom() {
     if (!chatMessages) {
@@ -98,6 +58,36 @@ function setChatInteractionDisabled(isDisabled) {
         chatInput.disabled = isDisabled;
     }
 }
+
+function disableChatUiForMissingKey() {
+    setChatInteractionDisabled(true);
+
+    chatSuggestionButtons.forEach(function(button) {
+        button.disabled = true;
+        button.setAttribute('aria-disabled', 'true');
+    });
+
+    if (chatMessages) {
+        const notice = document.createElement('div');
+        notice.className = 'chat-message chat-message--assistant';
+        notice.textContent = 'Chat-Funktion ist aktuell nicht verfuegbar.';
+        chatMessages.appendChild(notice);
+        scrollChatToBottom();
+    }
+}
+
+const systemPrompt = `Du bist ein freundlicher, sachlicher Assistent der Fachschule Bern Portfolio-Seite von Fabian Ramseier.
+Deine einzige Aufgabe: Recruitern ehrlich beantworten ob Fabian fuer eine konkrete Stelle geeignet ist.
+
+Fabians Profil:
+- Studium: Bsc Wirtschaftsinformatik (digital Business and AI), Fachhochschule Bern (laufend)
+- Praktische Erfahrung: Projekt bei Mobiliar ([Projektbeschreibung: Modernisierung des Versicherungsproduktes sowie des Systems]), 5 Jahre Consulting in der Versicherungsindustrie mit Fokus auf KMU, Lehre auf einer Generalagentur (ebenfalls Versicherungsbranche),
+- Skills: HTML, CSS, JavaScript, Python, Grundlagenwissen mit AI, Versicherungstechnik, Jira, agile Methoden (SAFe), Stakeholder Management, 
+- Sprachen: Deutsch (Muttersprache), Englisch (B2), Franzoesisch (B1)
+- Staerken: Schneller Lerner, uebernimmt gerne Verantwortung, Wissensdurstig, sehr adaptiv bei neuen Situationen,
+- Einschraenkungen: Aktuell nur Teilzeit aufgrund des Studiums. Einschraenkung entfaellt Sommer 2027.
+Antworte immer auf Deutsch. Bleib sachlich.
+Wenn du etwas nicht weisst, sag es offen. Erfinde keine Fakten ueber Fabian.`;
 
 async function sendChatMessage() {
     if (!chatInput || !chatMessages || !chatSend) {
@@ -167,7 +157,7 @@ async function sendChatMessage() {
     }
 }
 
-if (chatSend && chatInput) {
+if (chatSend && chatInput && isApiKeyConfigured) {
     chatSend.addEventListener('click', sendChatMessage);
 
     chatInput.addEventListener('keydown', function(event) {
@@ -194,165 +184,8 @@ if (chatSend && chatInput) {
     });
 }
 
-const projectFilters = document.querySelectorAll('.project-filter');
-const projectCards = document.querySelectorAll('.project-card');
-
-function applyProjectFilter(filter) {
-    projectCards.forEach(function(card) {
-        const category = card.getAttribute('data-category');
-        const isVisible = filter === 'all' || category === filter;
-        card.style.display = isVisible ? '' : 'none';
-    });
-}
-
-if (projectFilters.length && projectCards.length) {
-    projectFilters.forEach(function(button) {
-        button.addEventListener('click', function() {
-            const filter = button.getAttribute('data-filter') || 'all';
-
-            projectFilters.forEach(function(btn) {
-                btn.classList.remove('is-active');
-                btn.setAttribute('aria-pressed', 'false');
-            });
-
-            button.classList.add('is-active');
-            button.setAttribute('aria-pressed', 'true');
-
-            applyProjectFilter(filter);
-        });
-    });
-}
-
-const contactForm = document.getElementById('contact-form');
-const contactStatus = document.getElementById('contact-status');
-
-async function submitContactFormData(actionUrl, formData) {
-    try {
-        const response = await fetch(actionUrl, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json'
-            },
-            body: formData
-        });
-
-        if (response.ok) {
-            return { ok: true };
-        }
-
-        let errorMessage = 'Entschuldigung, das Formular konnte nicht gesendet werden.';
-        const errorData = await response.json().catch(function() {
-            return null;
-        });
-
-        if (errorData && errorData.errors && errorData.errors.length) {
-            errorMessage = errorData.errors[0].message || errorMessage;
-        }
-
-        return { ok: false, message: errorMessage };
-    } catch (error) {
-        return { ok: false, message: 'Entschuldigung, das Formular konnte nicht gesendet werden.' };
-    }
-}
-
-function updateContactStatus(message, statusClass) {
-    if (!contactStatus) {
-        return;
-    }
-
-    contactStatus.textContent = message;
-    contactStatus.className = `contact-status ${statusClass}`.trim();
-}
-
-function setFieldError(fieldId, message) {
-    const input = document.getElementById('contact-' + fieldId);
-    const errorEl = document.getElementById('error-' + fieldId);
-    if (input) input.classList.add('is-invalid');
-    if (errorEl) {
-        errorEl.textContent = message;
-        errorEl.classList.add('is-visible');
-    }
-}
-
-function clearFieldError(fieldId) {
-    const input = document.getElementById('contact-' + fieldId);
-    const errorEl = document.getElementById('error-' + fieldId);
-    if (input) input.classList.remove('is-invalid');
-    if (errorEl) {
-        errorEl.textContent = '';
-        errorEl.classList.remove('is-visible');
-    }
-}
-
-function validateContactForm() {
-    let valid = true;
-
-    const nameVal = (document.getElementById('contact-name') || {}).value || '';
-    const emailVal = (document.getElementById('contact-email') || {}).value || '';
-    const messageVal = (document.getElementById('contact-message') || {}).value || '';
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    clearFieldError('name');
-    clearFieldError('email');
-    clearFieldError('message');
-
-    if (nameVal.trim().length < 2) {
-        setFieldError('name', 'Name must be at least 2 characters.');
-        valid = false;
-    }
-    if (!emailPattern.test(emailVal.trim())) {
-        setFieldError('email', 'Please enter a valid email address.');
-        valid = false;
-    }
-    if (messageVal.trim().length < 20) {
-        setFieldError('message', 'Message must be at least 20 characters.');
-        valid = false;
-    }
-
-    return valid;
-}
-
-if (contactForm) {
-    ['name', 'email', 'message'].forEach(function(fieldId) {
-        const el = document.getElementById('contact-' + fieldId);
-        if (el) {
-            el.addEventListener('input', function() {
-                clearFieldError(fieldId);
-            });
-        }
-    });
-
-    contactForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        if (!validateContactForm()) return;
-
-        const submitButton = document.getElementById('contact-submit');
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = 'Sending...';
-            submitButton.classList.add('is-loading');
-        }
-
-        updateContactStatus('', '');
-
-        const formData = new FormData(contactForm);
-        const result = await submitContactFormData(contactForm.action, formData);
-
-        if (result.ok) {
-            updateContactStatus('Danke! Deine Nachricht wurde gesendet.', 'is-success');
-            contactForm.reset();
-            ['name', 'email', 'message'].forEach(function(id) { clearFieldError(id); });
-        } else {
-            updateContactStatus(result.message, 'is-error');
-        }
-
-        if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.textContent = 'Send';
-            submitButton.classList.remove('is-loading');
-        }
-    });
+if (!isApiKeyConfigured) {
+    disableChatUiForMissingKey();
 }
 
 /**
