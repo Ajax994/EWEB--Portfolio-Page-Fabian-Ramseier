@@ -17,7 +17,37 @@ navLinks.querySelectorAll('.nav-link').forEach(function(link) {
 // Auf GitHub Pages (Static Hosting) ist kein serverseitiger Proxy moeglich.
 // Produktive Loesung: Serverless Function als Proxy (z.B. Netlify/Vercel).
 // Massnahmen: Spending Limit $2, Key wird nach Benotung rotiert.
-const API_KEY = "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";
+    if (!isApiKeyConfigured) {
+        return;
+    }
+
+function disableChatUiForMissingKey() {
+    setChatInteractionDisabled(true);
+
+    chatSuggestionButtons.forEach(function(button) {
+        button.disabled = true;
+        button.setAttribute('aria-disabled', 'true');
+    });
+
+    if (chatMessages) {
+        const notice = document.createElement('div');
+        notice.className = 'chat-message chat-message--assistant';
+        notice.textContent = 'Chat-Funktion ist aktuell nicht verfuegbar.';
+        chatMessages.appendChild(notice);
+        scrollChatToBottom();
+    }
+}
+
+if (!isApiKeyConfigured) {
+    disableChatUiForMissingKey();
+}
+
+const isApiKeyConfigured = typeof API_KEY === 'string'
+    && API_KEY.trim() !== ''
+    && API_KEY !== 'REPLACE_BY_CI'
+    && !API_KEY.includes('REPLACE_BY_CI');
+
+// API_KEY wird ueber secret.js bereitgestellt.
 
 const systemPrompt = `Du bist ein freundlicher, sachlicher Assistent der Fachschule Bern Portfolio-Seite von Fabian Ramseier.
 Deine einzige Aufgabe: Recruitern ehrlich beantworten ob Fabian fuer eine konkrete Stelle geeignet ist.
