@@ -58,7 +58,6 @@
     --chat-suggestion-radius: 999rem;
     --chat-suggestion-font-size: 0.85rem;
     --chat-suggestion-transition: background-color 0.2s ease, color 0.2s ease;
-    --chat-window-max-width-tablet: 43.75rem;
     --chat-disclaimer-size: 0.85rem;
     --chat-content-gap: 1rem;
     --projects-padding-block: 2.5rem;
@@ -435,6 +434,9 @@ main {
 
 .about-content {
     padding-block: var(--about-padding-block);
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--content-padding-inline);
 }
 
 .about-heading {
@@ -445,7 +447,6 @@ main {
 
 .about-intro {
     margin: 0 0 var(--about-intro-margin-bottom);
-    max-width: var(--about-intro-max-width);
     font-size: var(--about-intro-size);
     line-height: var(--about-intro-line-height);
     color: var(--color-text);
@@ -455,7 +456,6 @@ main {
         display: grid;
         grid-template-columns: repeat(var(--about-grid-columns), minmax(0, 1fr));
         gap: var(--about-grid-gap);
-        max-width: var(--about-intro-max-width);
     }
 
 .about-skill {
@@ -517,6 +517,11 @@ main {
 .experience-item {
     position: relative;
     padding-bottom: var(--timeline-item-gap);
+    background-color: var(--projects-card-bg);
+    border: var(--projects-card-border);
+    border-radius: var(--projects-card-radius);
+    padding: 1.25rem;
+    border-left: 0.25rem solid var(--color-accent);
 }
 
 .experience-item:last-child {
@@ -558,10 +563,13 @@ main {
 
 .projects-content {
     padding-block: var(--projects-padding-block);
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--content-padding-inline);
 }
 
 .projects-header {
-    text-align: center;
+    text-align: left;
     margin-bottom: var(--projects-header-margin);
 }
 
@@ -588,7 +596,7 @@ main {
 .projects-filters {
     display: flex;
     gap: var(--projects-filter-gap);
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     margin-bottom: var(--projects-header-margin);
 }
@@ -784,6 +792,9 @@ main {
 
 .recruiter-chat-content {
     padding-block: var(--chat-section-padding-block);
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--content-padding-inline);
 }
 
 .recruiter-chat-heading {
@@ -976,10 +987,7 @@ main {
 }
 
 @media (min-width: 768px) {
-    .chat-window {
-        max-width: var(--chat-window-max-width-tablet);
-        margin-inline: 0;
-    }
+
 
     .about {
         --about-grid-columns: 2;
@@ -1043,8 +1051,47 @@ main {
         height: clamp(300px, 30vw, 400px);
     }
 
+    .experience-timeline {
+        border-left: none;
+        padding-left: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--timeline-item-gap);
+    }
+
     .experience-item {
-        padding-bottom: 1.65rem;
+        padding-bottom: 0;
+        background-color: var(--projects-card-bg);
+        border: var(--projects-card-border);
+        border-radius: var(--projects-card-radius);
+        padding: 1.25rem;
+        border-left: 0.25rem solid var(--color-accent);
+    }
+
+    .experience-item::before {
+        display: none;
+    }
+
+    .experience-item:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .about-skill-icon {
+        transition: var(--about-icon-transition);
+        transform-origin: center;
+        flex-shrink: 0;
+    }
+
+    .about-skill:hover .about-skill-icon,
+    .about-skill:focus-within .about-skill-icon {
+        transform: scale(var(--about-icon-scale-hover));
+    }
+
+    .about-skill-label {
+        margin: 0;
+        color: var(--color-text);
+        font-size: var(--about-skill-label-size);
+        line-height: var(--about-skill-label-line-height);
     }
 }
 
@@ -1107,6 +1154,9 @@ main {
 
 .skills-content {
     padding-block: var(--contact-padding-block);
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--content-padding-inline);
 }
 
 .skills-eyebrow {
@@ -1231,6 +1281,9 @@ main {
 
 .contact-content {
     padding-block: var(--contact-padding-block);
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--content-padding-inline);
 }
 
 .contact-heading {
@@ -1248,7 +1301,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: var(--contact-form-gap);
-    max-width: 36rem;
+    max-width: 100%;
 }
 
 .contact-field {
