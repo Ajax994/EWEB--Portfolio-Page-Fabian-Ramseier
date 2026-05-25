@@ -234,16 +234,77 @@ function updateContactStatus(message, statusClass) {
     contactStatus.className = `contact-status ${statusClass}`.trim();
 }
 
+function setFieldError(fieldId, message) {
+    const input = document.getElementById('contact-' + fieldId);
+    const errorEl = document.getElementById('error-' + fieldId);
+    if (input) input.classList.add('is-invalid');
+    if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.add('is-visible');
+    }
+}
+
+function clearFieldError(fieldId) {
+    const input = document.getElementById('contact-' + fieldId);
+    const errorEl = document.getElementById('error-' + fieldId);
+    if (input) input.classList.remove('is-invalid');
+    if (errorEl) {
+        errorEl.textContent = '';
+        errorEl.classList.remove('is-visible');
+    }
+}
+
+function validateContactForm() {
+    let valid = true;
+
+    const nameVal = (document.getElementById('contact-name') || {}).value || '';
+    const emailVal = (document.getElementById('contact-email') || {}).value || '';
+    const messageVal = (document.getElementById('contact-message') || {}).value || '';
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    clearFieldError('name');
+    clearFieldError('email');
+    clearFieldError('message');
+
+    if (nameVal.trim().length < 2) {
+        setFieldError('name', 'Name must be at least 2 characters.');
+        valid = false;
+    }
+    if (!emailPattern.test(emailVal.trim())) {
+        setFieldError('email', 'Please enter a valid email address.');
+        valid = false;
+    }
+    if (messageVal.trim().length < 20) {
+        setFieldError('message', 'Message must be at least 20 characters.');
+        valid = false;
+    }
+
+    return valid;
+}
+
 if (contactForm) {
+    ['name', 'email', 'message'].forEach(function(fieldId) {
+        const el = document.getElementById('contact-' + fieldId);
+        if (el) {
+            el.addEventListener('input', function() {
+                clearFieldError(fieldId);
+            });
+        }
+    });
+
     contactForm.addEventListener('submit', async function(event) {
         event.preventDefault();
 
-        const submitButton = contactForm.querySelector('button[type="submit"]');
+        if (!validateContactForm()) return;
+
+        const submitButton = document.getElementById('contact-submit');
         if (submitButton) {
             submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+            submitButton.classList.add('is-loading');
         }
 
-        updateContactStatus('Sende Nachricht ...', '');
+        updateContactStatus('', '');
 
         const formData = new FormData(contactForm);
         const result = await submitContactFormData(contactForm.action, formData);
@@ -251,12 +312,15 @@ if (contactForm) {
         if (result.ok) {
             updateContactStatus('Danke! Deine Nachricht wurde gesendet.', 'is-success');
             contactForm.reset();
+            ['name', 'email', 'message'].forEach(function(id) { clearFieldError(id); });
         } else {
             updateContactStatus(result.message, 'is-error');
         }
 
         if (submitButton) {
             submitButton.disabled = false;
+            submitButton.textContent = 'Send';
+            submitButton.classList.remove('is-loading');
         }
     });
 }
@@ -264,9 +328,28 @@ if (contactForm) {
 /**
  * Skills Section - Chart.js Implementation
  */
+function showSkillsChart(chartId) {
+    const skeletonEl = document.getElementById('skeleton-' + chartId);
+    const containerEl = document.getElementById('chart-container-' + chartId);
+    if (skeletonEl) skeletonEl.style.display = 'none';
+    if (containerEl) containerEl.classList.add('is-ready');
+}
+
+function showSkillsError(chartId, message) {
+    const skeletonEl = document.getElementById('skeleton-' + chartId);
+    const errorEl = document.getElementById('error-' + chartId);
+    if (skeletonEl) skeletonEl.style.display = 'none';
+    if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.add('is-visible');
+    }
+}
+
 async function initSkillsCharts() {
     if (typeof Chart === 'undefined') {
         console.error('Chart.js not loaded');
+        showSkillsError('competencies', 'Chart library could not be loaded.');
+        showSkillsError('tools', 'Chart library could not be loaded.');
         return;
     }
 
@@ -283,9 +366,14 @@ async function initSkillsCharts() {
         if (!data.competencies || !data.tools) throw new Error('Invalid skills data structure');
 
         renderCompetenciesChart(competenciesCanvas, data.competencies);
+        showSkillsChart('competencies');
+
         renderToolsChart(toolsCanvas, data.tools);
+        showSkillsChart('tools');
     } catch (error) {
         console.error('Failed to load skills data:', error);
+        showSkillsError('competencies', 'Could not load skills data. Please try refreshing the page.');
+        showSkillsError('tools', 'Could not load skills data. Please try refreshing the page.');
     }
 }
 

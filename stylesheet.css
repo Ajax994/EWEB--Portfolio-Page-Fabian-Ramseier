@@ -1156,13 +1156,59 @@ main {
     color: #a0a0a0;
 }
 
+.skills-skeleton {
+    width: 100%;
+    height: 260px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background-color: var(--skills-card-bg);
+}
+
+.skills-skeleton-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0.04) 0%,
+        rgba(255,255,255,0.1) 40%,
+        rgba(255,255,255,0.04) 80%
+    );
+    background-size: 200% 100%;
+    animation: skills-shimmer 1.5s infinite linear;
+}
+
+@keyframes skills-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.skills-error {
+    display: none;
+    margin: 0.5rem 0 0;
+    font-size: 0.875rem;
+    color: #f28b82;
+}
+
+.skills-error.is-visible {
+    display: block;
+}
+
 .skills-chart-container {
+    display: none;
     position: relative;
     width: 100%;
     height: 260px;
 }
 
+.skills-chart-container.is-ready {
+    display: block;
+}
+
 @media (min-width: 768px) {
+    .skills-skeleton {
+        height: 350px;
+    }
+
     .skills-chart-container {
         height: 350px;
     }
@@ -1234,6 +1280,23 @@ main {
     border-color: var(--color-accent);
 }
 
+.contact-input.is-invalid,
+.contact-textarea.is-invalid {
+    border-color: #f28b82;
+}
+
+.field-error {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #f28b82;
+    min-height: 1rem;
+    display: none;
+}
+
+.field-error.is-visible {
+    display: block;
+}
+
 .contact-submit {
     align-self: flex-start;
     background-color: var(--color-accent);
@@ -1255,6 +1318,11 @@ main {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+}
+
+.contact-submit.is-loading {
+    opacity: 0.7;
+    cursor: wait;
 }
 
 .contact-status {

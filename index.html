@@ -133,13 +133,21 @@
             <div class="skills-grid">
                 <div class="skills-card">
                     <h3 class="skills-card-title">Core competencies</h3>
-                    <div class="skills-chart-container">
+                    <div class="skills-skeleton" id="skeleton-competencies" aria-hidden="true">
+                        <div class="skills-skeleton-inner"></div>
+                    </div>
+                    <p class="skills-error" id="error-competencies" aria-live="polite"></p>
+                    <div class="skills-chart-container" id="chart-container-competencies">
                         <canvas id="competenciesChart" aria-label="Radar chart showing core competencies" role="img"></canvas>
                     </div>
                 </div>
                 <div class="skills-card">
-                    <h3 class="skills-card-title">Tools & technologies</h3>
-                    <div class="skills-chart-container">
+                    <h3 class="skills-card-title">Tools &amp; technologies</h3>
+                    <div class="skills-skeleton" id="skeleton-tools" aria-hidden="true">
+                        <div class="skills-skeleton-inner"></div>
+                    </div>
+                    <p class="skills-error" id="error-tools" aria-live="polite"></p>
+                    <div class="skills-chart-container" id="chart-container-tools">
                         <canvas id="toolsChart" aria-label="Horizontal bar chart showing tools and technologies" role="img"></canvas>
                     </div>
                 </div>
@@ -271,22 +279,25 @@
                 <p class="contact-intro">Feel free to send me a message – I’ll respond as soon as possible.</p>
 
                 <form class="contact-form" id="contact-form" action="https://formspree.io/f/maqkolnd" method="POST">
-                    <label class="contact-field">
-                        <span class="contact-label">Name</span>
-                        <input class="contact-input" type="text" name="name" autocomplete="name" required>
-                    </label>
+                    <div class="contact-field">
+                        <label class="contact-label" for="contact-name">Name</label>
+                        <input class="contact-input" id="contact-name" type="text" name="name" autocomplete="name">
+                        <p class="field-error" id="error-name" aria-live="polite"></p>
+                    </div>
 
-                    <label class="contact-field">
-                        <span class="contact-label">Email</span>
-                        <input class="contact-input" type="email" name="email" autocomplete="email" required>
-                    </label>
+                    <div class="contact-field">
+                        <label class="contact-label" for="contact-email">Email</label>
+                        <input class="contact-input" id="contact-email" type="email" name="email" autocomplete="email">
+                        <p class="field-error" id="error-email" aria-live="polite"></p>
+                    </div>
 
-                    <label class="contact-field">
-                        <span class="contact-label">Message</span>
-                        <textarea class="contact-textarea" name="message" rows="5" required></textarea>
-                    </label>
+                    <div class="contact-field">
+                        <label class="contact-label" for="contact-message">Message</label>
+                        <textarea class="contact-textarea" id="contact-message" name="message" rows="5"></textarea>
+                        <p class="field-error" id="error-message" aria-live="polite"></p>
+                    </div>
 
-                    <button class="contact-submit" type="submit">Send</button>
+                    <button class="contact-submit" id="contact-submit" type="submit">Send</button>
                     <p class="contact-status" id="contact-status" aria-live="polite"></p>
                 </form>
             </div>
