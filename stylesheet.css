@@ -516,12 +516,6 @@ main {
 
 .experience-item {
     position: relative;
-    padding-bottom: var(--timeline-item-gap);
-    background-color: var(--projects-card-bg);
-    border: var(--projects-card-border);
-    border-radius: var(--projects-card-radius);
-    padding: 1.25rem;
-    border-left: 0.25rem solid var(--color-accent);
 }
 
 .experience-item:last-child {
@@ -983,6 +977,10 @@ main {
 
     .experience-timeline {
         padding-left: 1.2rem;
+    }
+
+    .experience-item {
+        padding-bottom: var(--timeline-item-gap);
     }
 }
 
