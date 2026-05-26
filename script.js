@@ -188,6 +188,26 @@ if (!isApiKeyConfigured) {
     disableChatUiForMissingKey();
 }
 
+// Section reveal animation
+const sections = document.querySelectorAll('section');
+
+if (sections.length > 0) {
+    const sectionObserver = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('section--visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    sections.forEach(function(section) {
+        sectionObserver.observe(section);
+    });
+}
+
 /**
  * Skills Section - Chart.js Implementation
  */
