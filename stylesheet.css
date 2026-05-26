@@ -13,18 +13,19 @@
     --color-hero-bg: #1a1a1a;
     --spacing-base: 1rem;
     --border-radius: 8px;
+    --section-padding: 6rem;
     --nav-height: 4.5rem;
     --content-max-width: 72rem;
     --content-padding-inline: clamp(1rem, 3vw, 2rem);
-    --experience-padding-block: 2.5rem;
+    --experience-padding-block: var(--section-padding);
     --experience-heading-size: 1.75rem;
     --timeline-line-width: 0.125rem;
     --timeline-marker-size: 0.75rem;
     --timeline-content-offset: 1.35rem;
-    --timeline-item-gap: 2rem;
+    --timeline-item-gap: 2.5rem;
     --timeline-date-size: 1.05rem;
     --timeline-title-size: 1rem;
-    --about-padding-block: 2.5rem;
+    --about-padding-block: var(--section-padding);
     --about-heading-size: 1.75rem;
     --about-intro-size: clamp(0.98rem, 2vw, 1.1rem);
     --about-intro-line-height: 1.7;
@@ -40,7 +41,7 @@
     --about-icon-transition: transform 0.2s ease;
     --color-border: #3a3a50;
     --color-surface-alt: #232334;
-    --chat-section-padding-block: 2.5rem;
+    --chat-section-padding-block: var(--section-padding);
     --chat-window-padding: 1rem;
     --chat-window-radius: var(--border-radius);
     --chat-messages-min-height: 10rem;
@@ -60,7 +61,7 @@
     --chat-suggestion-transition: background-color 0.2s ease, color 0.2s ease;
     --chat-disclaimer-size: 0.85rem;
     --chat-content-gap: 1rem;
-    --projects-padding-block: 2.5rem;
+    --projects-padding-block: var(--section-padding);
     --projects-header-gap: 0.4rem;
     --projects-header-margin: 2rem;
     --projects-eyebrow-size: 0.75rem;
@@ -104,7 +105,7 @@
     --footer-gap: 1.2rem;
     --footer-text-size: 0.95rem;
     --footer-social-gap: 1.25rem;
-    --contact-padding-block: 2.5rem;
+    --contact-padding-block: var(--section-padding);
     --contact-form-gap: 1.1rem;
     --contact-field-gap: 0.45rem;
     --contact-input-padding: 0.7rem 0.9rem;
@@ -126,6 +127,19 @@ html {
 body {
     font-family: var(--font-body), sans-serif;
     margin: 0;
+    line-height: 1.7;
+}
+
+section {
+    scroll-margin-top: var(--nav-height);
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section--visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -309,7 +323,7 @@ main {
     grid-template-columns: 1fr;
     align-items: center;
     gap: 2.5rem;
-    padding-block: 3rem;
+    padding-block: var(--section-padding);
     padding-inline: var(--content-padding-inline);
     width: 100%;
     max-width: var(--content-max-width);
@@ -440,7 +454,7 @@ main {
 }
 
 .about-heading {
-    margin: 0 0 var(--spacing-base);
+    margin: 0 0 2rem;
     font-size: var(--about-heading-size);
     color: var(--color-text);
 }
@@ -504,7 +518,7 @@ main {
 }
 
 .experience-heading {
-    margin: 0 0 1.5rem;
+    margin: 0 0 2rem;
     font-size: var(--experience-heading-size);
     color: var(--color-text);
 }
@@ -792,7 +806,7 @@ main {
 }
 
 .recruiter-chat-heading {
-    margin: 0;
+    margin: 0 0 2rem;
     font-size: var(--about-heading-size);
 }
 
@@ -958,7 +972,7 @@ main {
     }
 
     .about {
-        --about-padding-block: 2.7rem;
+        --about-padding-block: var(--section-padding);
         --about-grid-gap: 1.7rem;
     }
 
@@ -967,12 +981,12 @@ main {
     }
 
     .hero-container {
-        padding-block: 3rem;
+        padding-block: var(--section-padding);
     }
 
     .experience-container {
         width: 100%;
-        padding-block: 2.35rem;
+        padding-block: var(--section-padding);
     }
 
     .experience-timeline {
@@ -997,7 +1011,7 @@ main {
 
     .hero-container {
         grid-template-columns: 1fr 1fr;
-        padding-block: 4rem;
+        padding-block: var(--section-padding);
     }
 
     .hero-text {
@@ -1029,7 +1043,7 @@ main {
 
 @media (min-width: 1024px) {
     .recruiter-chat {
-        --chat-section-padding-block: 3rem;
+        --chat-section-padding-block: var(--section-padding);
     }
 
     .about {
@@ -1041,7 +1055,7 @@ main {
     }
 
     .hero-container {
-        padding-block: 5rem;
+        padding-block: var(--section-padding);
     }
 
     .hero-portrait {
@@ -1168,7 +1182,7 @@ main {
 }
 
 .skills-heading {
-    margin: 0 0 0.75rem;
+    margin: 0 0 2rem;
     font-size: var(--about-heading-size);
 }
 
@@ -1285,7 +1299,7 @@ main {
 }
 
 .contact-heading {
-    margin: 0 0 0.75rem;
+    margin: 0 0 2rem;
     font-size: var(--about-heading-size);
 }
 
