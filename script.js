@@ -13,10 +13,7 @@ navLinks.querySelectorAll('.nav-link').forEach(function(link) {
     });
 });
 
-// SICHERHEITSHINWEIS: API-Key ist im Client-seitigen Code sichtbar.
-// Auf GitHub Pages (Static Hosting) ist kein serverseitiger Proxy moeglich.
-// Produktive Loesung: Serverless Function als Proxy (z.B. Netlify/Vercel).
-// Massnahmen: Spending Limit $2, Key wird nach Benotung rotiert.
+// SICHERHEITSHINWEIS: // API key is injected at build time via GitHub Actions
 const chatMessages = document.getElementById('chat-messages');
 const chatInput = document.getElementById('chat-input');
 const chatSend = document.getElementById('chat-send');
