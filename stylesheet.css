@@ -272,27 +272,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== EXISTING STYLES ===== */
 
-.btn {
-    background-color: #2563eb;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #1d4ed8;
-}
-
-.btn:active {
-    background-color: #1e40af;
-    transform: scale(0.98);
-}
-
 .hidden-text {
     opacity: 1;
     transition: opacity 0.3s ease;
