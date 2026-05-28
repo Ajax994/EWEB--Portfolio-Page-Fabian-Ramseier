@@ -435,3 +435,38 @@ projectFilters.forEach(function(button) {
 document.addEventListener('DOMContentLoaded', () => {
     initSkillsCharts();
 });
+
+// Contact form — AJAX submission with status feedback
+const contactForm = document.getElementById('contact-form');
+const contactStatus = document.getElementById('contact-status');
+const contactSubmit = document.getElementById('contact-submit');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        contactSubmit.disabled = true;
+        contactStatus.textContent = '';
+        contactStatus.className = 'contact-status';
+
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: new FormData(contactForm),
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+
+            contactForm.reset();
+            contactStatus.textContent = 'Message sent – thank you! I\'ll get back to you shortly.';
+            contactStatus.classList.add('is-success');
+        } catch (error) {
+            console.error('Form submission failed:', error);
+            contactStatus.textContent = 'Something went wrong. Please try again or email me directly.';
+            contactStatus.classList.add('is-error');
+        } finally {
+            contactSubmit.disabled = false;
+        }
+    });
+}
