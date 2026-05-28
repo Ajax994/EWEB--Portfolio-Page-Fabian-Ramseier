@@ -620,6 +620,10 @@ main {
     flex-direction: column;
 }
 
+.project-card--hidden {
+    display: none;
+}
+
 .project-thumb {
     position: relative;
     min-height: var(--projects-thumb-height);
