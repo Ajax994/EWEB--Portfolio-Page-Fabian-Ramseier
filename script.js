@@ -408,6 +408,29 @@ function renderToolsChart(canvas, tools) {
     });
 }
 
+const projectFilters = document.querySelectorAll('.project-filter');
+const projectCards = document.querySelectorAll('.project-card');
+
+function updateProjectFilterVisibility(activeFilter) {
+    projectCards.forEach(function(card) {
+        const category = card.getAttribute('data-category');
+        const shouldShow = activeFilter === 'all' || category === activeFilter;
+        card.classList.toggle('project-card--hidden', !shouldShow);
+    });
+}
+
+projectFilters.forEach(function(button) {
+    button.addEventListener('click', function() {
+        projectFilters.forEach(function(filterButton) {
+            filterButton.classList.remove('is-active');
+        });
+
+        button.classList.add('is-active');
+        const activeFilter = button.getAttribute('data-filter') || 'all';
+        updateProjectFilterVisibility(activeFilter);
+    });
+});
+
 // Initialize charts when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     initSkillsCharts();
